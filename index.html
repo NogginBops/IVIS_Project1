@@ -10,7 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </head>
 <body>
-<ul id="peoplelist" style="width:35%; height:65vh; overflow-y: scroll;" ></ul>
+<div id="peoplelist">
+</div>
+
+<div id="plot"></div>
 
 <script>
     const index = d3.local();
@@ -18,7 +21,7 @@
     const oddColor = "rgb(16, 3, 21)"
     const highlightColor = "rgb(66, 53, 71)"
 
-    const peopleList = d3.select("#peoplelist")
+    const peopleList = d3.select("#peoplelist").append("ul")
 
     const peopleTooltip = peopleList.append("div")
     peopleTooltip.style("opacity", 0)
@@ -68,6 +71,8 @@
             peopleTooltip.style("opacity", 0)
         })
     })
+
+
 
     /*d3.json("test.json").then(function (json) { 
         console.log(json) 
