@@ -1,0 +1,45 @@
+:root {
+    color-scheme: dark;
+
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: rgb(16, 3, 21);
+}
+
+* {
+    color: whitesmoke;
+}
+
+ul {
+    padding-left: 0;
+}
+
+ul li {
+    list-style: none;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+    border: solid;
+    border-width: 1px;
+    border-bottom: 0px;
+    border-color: rgb(93, 71, 81);
+    
+}
+
+ul li:last-child {
+    border: 1px solid;
+    border-color: rgb(93, 71, 81);
+}
+
+.tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: rgb(14, 5, 10);
+    color: whitesmoke;
+
+    border: 1px solid;
+    border-radius: 0.8em;
+    padding-left: 0.8em;
+  }
