@@ -69,16 +69,32 @@ ul li:last-child {
     margin: 0;
 }
 
-#peoplelist {
-    display: inline-block;
+select {
+    width: 100%;
+}
+
+#people {
+    display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     background-color: black;
     border: 1px solid rgb(93, 71, 81);
     width: 17vw;
-    height: 75vh;
-    overflow-y: auto;
+    height: 100%;
     vertical-align: top;
     /*flex-grow: 1;*/
+}
+
+#peoplelist {
+    display: inline-block;
+    flex-direction: column;
+    flex-flow: column;
+    box-sizing: border-box;
+    background-color: black;
+    border: 1px solid rgb(93, 71, 81);
+    width: 100%;
+    
+    overflow-y: auto;
 }
 
 #plot {
@@ -86,7 +102,7 @@ ul li:last-child {
     box-sizing: border-box;
     background-color: rgb(33, 15, 27);
     width: 65vw;
-    height: 75vh;
+    height: 100%;
     /*vertical-align: top;*/
     /*flex-grow: 5;*/
 
@@ -98,9 +114,13 @@ ul li:last-child {
     box-sizing: border-box;
     background-color: black;
     width: 17vw;
-    height: 75vh;
+    height: 100%;
     /*vertical-align: top;*/
     /*flex-grow: 1;*/
 
     border: 1px solid;
+}
+
+.tooltip {
+    fill: #ffffff;
 }

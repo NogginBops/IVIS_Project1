@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css">
     <script src="d3.js"></script>
+    <script src="radarChart.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +13,13 @@
 <body>
 
 <div id="flex-container">
-    <div id="peoplelist"></div>
+    <div id="people">
+        <p>Double click person to add to group.</p>
+            Sort by:
+            <select id="peoplesort"></select>
+
+        <div id="peoplelist"> </div>
+    </div>
 
     <div id="plot"></div>
 
@@ -20,6 +27,7 @@
 
     <script type="text/javascript" src="main.js"></script>
 </div>
+<input type="text" id="fname" name="fname">
 
 </body>
 </html>
