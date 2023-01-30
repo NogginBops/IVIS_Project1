@@ -230,7 +230,7 @@ function spider(groupMembers, labels)
         w: 800 - margin.right - margin.left,
         h: 600 - margin.bottom - margin.top,
         margin: margin,
-        maxValue: 16,
+        maxValue: 10*5,
         levels: 4,
         roundStrokes: false,
         color: color,
