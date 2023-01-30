@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div id="flex-container">
+<div class="flex-container" id="main-panel">
     <div id="people">
         <p>Click person to add to the group.</p>
             Sort by:
@@ -21,13 +21,22 @@
         <div id="peoplelist"> </div>
     </div>
 
-    <div id="plot"></div>
+    <div id="plot">
+        <h3>Sum of skills:</h3>
+    </div>
 
-    <div id="grouplist"></div>
+    <div id="grouplist">
+        <h4>Group:</h4>
+    </div>
 
     <script type="text/javascript" src="main.js"></script>
 </div>
-<input type="text" id="fname" name="fname">
+<div class="flex-container" id="lower-panel">
+    <h4 id="keywordheader">Group keywords</h4>
+    <div id="keywordlist">
+        
+    </div>
+</div>
 
 </body>
 </html>

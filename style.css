@@ -56,7 +56,7 @@ ul li:last-child {
     margin-top: 1em;
 }
 
-#flex-container {
+.flex-container {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -64,9 +64,12 @@ ul li:last-child {
     align-items: flex-start;
     align-content: stretch;
     width: 100%;
-    height: 75vh;
     padding: 0;
     margin: 0;
+}
+
+#main-panel {
+    height: 75vh;
 }
 
 select {
@@ -109,6 +112,16 @@ select {
     border: 1px solid;
 }
 
+#plot h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5%;
+    background-color: rgb(93, 64, 83);
+    margin: 0;
+}
+
 #grouplist {
     display: inline-block;
     box-sizing: border-box;
@@ -121,6 +134,60 @@ select {
     border: 1px solid;
 }
 
+#grouplist h4 {
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    padding: 0.5em 0em 0.5em 1em;
+}
+
 .tooltip {
     fill: #ffffff;
+}
+
+#lower-panel {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid;
+    width: 100%;
+    height: 25vh;
+
+    overflow: hidden;
+}
+
+#keywordlist {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+
+    overflow: auto;
+
+    padding: 0.2em;
+}
+
+#keywordlist p {
+    border: 1px solid;
+    border-radius: 1em;
+    display: inline-block;
+    margin: 0.3em;
+    background-color: rgb(35, 24, 29);
+    flex-grow: 1;
+    padding: 2em;
+    height: fit-content;
+    
+}
+
+#keywordheader {
+    display: inline-block;
+    width: 100%;
+    height: fit-content;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0.5em;
+    padding-left: 1em;
+    background-color: rgb(61, 14, 48);
 }

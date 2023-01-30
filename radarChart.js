@@ -57,7 +57,7 @@ function RadarChart(id, data, options) {
 			//.attr("width",  cfg.w + cfg.margin.left + cfg.margin.right)
 			//.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
 			.attr("width",  "100%")
-			.attr("height", "100%")
+			.attr("height", "90%") /* FIXME: Ugly hack!*/
 			.attr("viewBox", [ 0, 0, cfg.w + cfg.margin.left + cfg.margin.right, cfg.h + cfg.margin.top + cfg.margin.bottom ])
 			.attr("class", "radar"+id);
 	//Append a g element		

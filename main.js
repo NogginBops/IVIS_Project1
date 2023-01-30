@@ -53,7 +53,9 @@ d3.csv("Project1_data_cleaned.csv").then(function (csv) {
         console.log(typeof key)
         console.log(key)
         console.log(csv[0][key])
-        sorted = csv.sort((a, b) => d3.ascending(a[key], b[key]))
+        let isNumeric = key !== "Alias";
+        sorted = csv.sort(function (a, b) { if (isNumeric) return d3.descending(+a[key], +b[key]); else return d3.ascending(a[key], b[key]); })
+        console.log(sorted)
 
         set = populatePeopleList(peopleList, sorted)
     });
@@ -63,6 +65,8 @@ d3.csv("Project1_data_cleaned.csv").then(function (csv) {
     populateGroupList(groupList, currentGroup);
 
     spider(currentGroup, keys);
+
+    populateKeywords(currentGroup);
 })
 
 function initPeopleList(peopleList, peopleData)
@@ -98,6 +102,8 @@ function initPeopleList(peopleList, peopleData)
         {
             currentGroup.push(data);
             populateGroupList(groupList, currentGroup);
+
+            populateKeywords(currentGroup);
 
             spider(currentGroup, keys);
         }
@@ -166,6 +172,7 @@ function populateGroupList(groupList, groupData)
             currentGroup.splice(index, 1)
             populateGroupList(groupList, currentGroup);
 
+            populateKeywords(currentGroup);
             spider(currentGroup, keys);
         }
 
@@ -178,8 +185,6 @@ function populateGroupList(groupList, groupData)
 function spider(groupMembers, labels)
 {
     data = []
-    let maxValues = {}
-    let minValues = {}
     let sum = {}
     for (const label of labels) {
         if (label == "Alias") continue;
@@ -192,16 +197,6 @@ function spider(groupMembers, labels)
                 const element = member[key];
                 
                 sum[key] = sum[key] + (+element)
-
-                if (maxValues.hasOwnProperty(key)) 
-                    maxValues[key] = Math.max(maxValues[key], element);
-                else 
-                    maxValues[key] = element;
-
-                if (minValues.hasOwnProperty(key)) 
-                    minValues[key] = Math.min(minValues[key], element);
-                else 
-                    minValues[key] = element;
             }
         }
     }
@@ -219,8 +214,6 @@ function spider(groupMembers, labels)
     }
 
     data.push(create_axis("Sum", sum))
-    data.push(create_axis("Max", maxValues))
-    data.push(create_axis("Min", minValues))
     
     var color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -230,7 +223,7 @@ function spider(groupMembers, labels)
         w: 800 - margin.right - margin.left,
         h: 600 - margin.bottom - margin.top,
         margin: margin,
-        maxValue: 10*5,
+        maxValue: 10 * Math.max(currentGroup.length, 1),
         levels: 4,
         roundStrokes: false,
         color: color,
@@ -238,4 +231,68 @@ function spider(groupMembers, labels)
       };
 
     RadarChart("#plot", data, radarChartOptions);
+}
+
+function populateKeywords(groupMembers)
+{
+    console.log(groupMembers)
+
+    keywords = {}
+    for (const member of groupMembers) {
+        console.log(member)
+        for (keyword of member.Keywords.split(',')) {
+            keyword = keyword.trim();
+            if (keywords.hasOwnProperty(keyword)) keywords[keyword].count += 1;
+            else keywords[keyword] = {count: 1, members: []};
+
+            keywords[keyword].members.push(member)
+        }
+    }
+    console.log(keywords)
+
+    list = []
+    for (const key in keywords) {
+        if (Object.hasOwnProperty.call(keywords, key)) {
+            const element = keywords[key];
+            list.push({ keyword: key, count: element.count, members: element.members });
+        }
+    }
+    console.log(list)
+
+    list.sort((a, b) => d3.ascending(a.keyword, b.keyword)).sort((a, b) => d3.descending(a.count, b.count));
+
+    set = d3.select("#keywordlist").selectAll('p').data(list).join('p');
+
+    set.text(function (d, i) { console.log(d); return d.keyword + " x" + d.count; });
+
+    set.on('mouseover', function (event, data)  {
+        d3.select(this).transition()
+            .duration(30).style("background", highlightColor)
+
+        console.log(data)
+
+        members = groupList.selectAll('li').filter(function (d) { return data.members.some((m) => d.Alias === m.Alias); });
+
+        console.log(members)
+
+        members.transition()
+            .duration(30).style("background", highlightColor)
+    })
+
+    set.on('mouseout', function (event, data, i)  {
+        d3.select(this).transition()
+            .duration(100).style("background", 'rgb(35, 24, 29)')
+
+        console.log(data)
+
+        members = groupList.selectAll('li').filter(function (d) { return data.members.some((m) => d.Alias === m.Alias); });
+
+        console.log(members)
+
+        members.each(function (m) { 
+            isOdd = peopleIndex.get(this) % 2 === 1;
+            d3.select(this).transition()
+            .duration(100).style("background", isOdd ? oddColor : evenColor)
+         });
+    })
 }
